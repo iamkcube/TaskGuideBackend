@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
@@ -11,6 +10,7 @@ import os
 
 app = Flask(__name__)
 
+os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -56,7 +56,6 @@ def handle_user_input():
     print(user_question)
 
     if not hasattr(app, 'vectorstore'):
-        load_dotenv()
         raw_text = get_pdf_text([r'docs/SIH.pdf'])
         text_chunks = get_text_chunks(raw_text)
         app.vectorstore = get_vectorstore(text_chunks)
