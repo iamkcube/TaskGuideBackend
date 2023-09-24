@@ -13,8 +13,7 @@ app = Flask(__name__)
 CORS(app, origins=["http://localhost:5173",
      "https://taskguide-ciphersix.web.app"])
 
-# os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
 
 
 def get_pdf_text(pdf_docs):
