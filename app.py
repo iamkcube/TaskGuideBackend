@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from PyPDF2 import PdfReader
+from flask_cors import CORS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceInstructEmbeddings
 from langchain.vectorstores import FAISS
@@ -9,8 +10,10 @@ from langchain.chains import ConversationalRetrievalChain
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
+
 
 def get_pdf_text(pdf_docs):
     text = ""

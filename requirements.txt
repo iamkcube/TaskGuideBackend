@@ -8,6 +8,7 @@ altair==4
 # tiktoken==0.4.0
 gunicorn==21.2.0
 Flask==2.2.5
+Flask-Cors==4.0.0
 # uncomment to use huggingface llms
 # huggingface-hub==0.14.1
 
