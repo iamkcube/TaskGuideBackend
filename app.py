@@ -11,8 +11,8 @@ import os
 import uuid
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173",
-     "https://taskguide-ciphersix.web.app"])
+CORS(app, origins=["http://localhost:5173", "http://localhost:5174",
+     "https://taskguide-ciphersix.web.app", "https://taskguide-ciphersix.firebaseapp.com"])
 
 os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
 
@@ -21,13 +21,15 @@ os.environ["OPENAI_API_KEY"] = os.environ["OPEN_API_KEY"]
 def upload_pdf():
     try:
         pdf_file = request.files['pdfFile']
-
+        print(pdf_file)
+        print(pdf_file.filename)
         if pdf_file:
             file_name: str = pdf_file.filename if pdf_file.filename else ".pdf"
 
             if os.path.exists(file_name):
                 file_name = str(uuid.uuid1()) + file_name
             pdf_file.save(f'docs/{file_name}')
+            print(os.listdir("docs"))
 
             return jsonify({'message': 'PDF file uploaded successfully'}), 200
         else:
@@ -45,6 +47,7 @@ def get_pdf_text(pdf_docs):
         for page in pdf_reader.pages:
             text += page.extract_text()
     os.chdir("..")
+    print(text)
     return text
 
 
